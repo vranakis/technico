@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Link from 'next/link'
+import Users from './users/page'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -40,9 +42,9 @@ export default function RootLayout({
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                   <li><a>Item 1</a></li>
                   <li>
-                    <a>Parent</a>
+                    <a>Users</a>
                     <ul className="p-2">
-                      <li><a>Submenu 1</a></li>
+                      <li><Link href="/users">All Users</Link></li>
                       <li><a>Submenu 2</a></li>
                     </ul>
                   </li>
@@ -53,13 +55,13 @@ export default function RootLayout({
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">
-                <li><a>Item 1</a></li>
+                <li><Link href="/users/add-user">Add User</Link></li>
                 <li>
                   <details>
-                    <summary>Parent</summary>
+                    <summary>Users</summary>
                     <ul className="p-2">
-                      <li><a>Submenu 1</a></li>
-                      <li><a>Submenu 2</a></li>
+                      <li><Link href="/users">All Users</Link></li>
+                      <li><Link href="/users/add-user">Add User</Link></li>
                     </ul>
                   </details>
                 </li>
