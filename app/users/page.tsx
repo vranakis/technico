@@ -32,6 +32,23 @@ const Users = () => {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      const res = await fetch(`https://localhost:7118/api/Users/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete user.");
+      }
+
+      // Remove the user from the local state after successful deletion
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    } catch (err: any) {
+      setError(err.message || "An error occurred while deleting the user.");
+    }
+  };
+
   // Fetch users on component mount
   useEffect(() => {
     fetchUsers();
@@ -44,7 +61,7 @@ const Users = () => {
     <>
       <div className="my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {users.map((user) => (
-          <UserCard key={user.id} id={user.id} name={user.name} surname={user.surname} />
+          <UserCard key={user.id} id={user.id} name={user.name} surname={user.surname} onDelete={handleDelete} />
         ))}
       </div>
       <div className="flex flex-col items-center">

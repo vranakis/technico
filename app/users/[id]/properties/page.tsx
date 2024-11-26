@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import PropertyCard from "@/components/PropertyCard";
 
 interface PropertyItem {
+  id: string;
   address: string;
   yearOfConstruction: number;
   propertyType: string;
@@ -11,28 +14,28 @@ interface PropertyItem {
 
 const PropertiesPage = () => {
   const params = useParams();
-  const userId = params?.id;
+  const router = useRouter();
+  const id = params?.id;
 
   const [properties, setProperties] = useState<PropertyItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!id) return;
 
     const fetchProperties = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Fetch all properties tied to the user ID
-        const response = await fetch(`https://localhost:7118/api/PropertyItem/${userId}`);
+        const response = await fetch(`https://localhost:7118/api/PropertyItem/${id}`);
 
         if (!response.ok) {
           throw new Error(`Error ${response.status}: Failed to fetch properties`);
         }
 
-        const data: PropertyItem[] = await response.json();
+        const data = await response.json();
         setProperties(data);
       } catch (err: any) {
         setError(err.message || "An error occurred while fetching properties.");
@@ -42,26 +45,51 @@ const PropertiesPage = () => {
     };
 
     fetchProperties();
-  }, [userId]);
+  }, [id]);
+
+  const handleDelete = async (propertyId: string) => {
+    try {
+      const response = await fetch(`https://localhost:7118/api/PropertyItem/${propertyId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: Failed to delete property`);
+      }
+
+      setProperties((prev) => prev.filter((property) => property.id !== propertyId));
+    } catch (err: any) {
+      console.error("Error deleting property:", err.message);
+      setError(err.message || "An error occurred while deleting the property.");
+    }
+  };
 
   if (loading) return <p>Loading properties...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>User Properties</h1>
+    <div className="container mx-auto mt-8">
+      <h1 className="text-2xl font-bold text-center mb-6">User Properties</h1>
+      <div className="flex flex-col items-center mb-6">
+        <Link href={`/users/${id}/properties/add-property`} className="btn btn-primary">
+          Add New Property
+        </Link>
+      </div>
       {properties.length > 0 ? (
-        <ul>
-          {properties.map((property, index) => (
-            <li key={index} style={{ marginBottom: "20px", textAlign: "left" }}>
-              <strong>Address:</strong> {property.address} <br />
-              <strong>Year of Construction:</strong> {property.yearOfConstruction} <br />
-              <strong>Property Type:</strong> {property.propertyType}
-            </li>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {properties.map((property) => (
+            <PropertyCard
+              key={property.id}
+              id={property.id}
+              address={property.address}
+              yearOfConstruction={property.yearOfConstruction}
+              propertyType={property.propertyType}
+              onDelete={handleDelete}
+            />
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>No properties found for this user.</p>
+        <p className="text-center">No properties found for this user.</p>
       )}
     </div>
   );

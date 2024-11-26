@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
 import Users from './users/page'
+import ProtectedRoute from '@/components/ProtectedRoute'
+import LogoutButton from '@/components/LogOutButton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -69,11 +71,14 @@ export default function RootLayout({
               </ul>
             </div>
             <div className="navbar-end">
-              <a className="btn">Button</a>
+              <a className="btn">Admin Login</a>
+              <LogoutButton></LogoutButton>
             </div>
           </div>
         </header>
+        <ProtectedRoute>
         {children}
+        </ProtectedRoute>
         <footer className='text-gray-400 text-center text-xs py-5'>
           Currently the #1 app in the world!
         </footer></body>
