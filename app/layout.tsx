@@ -45,13 +45,13 @@ export default function RootLayout({
                     <a>Users</a>
                     <ul className="p-2">
                       <li><Link href="/users">All Users</Link></li>
-                      <li><a>Submenu 2</a></li>
+                      <li><Link href="/users/add-user">Add User</Link></li>
                     </ul>
                   </li>
                   <li><a>Item 3</a></li>
                 </ul>
               </div>
-              <a className="btn btn-ghost text-xl">Technico v16</a>
+              <Link href="/" className="btn btn-ghost text-xl">Technico v16</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">

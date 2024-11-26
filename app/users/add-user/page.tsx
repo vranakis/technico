@@ -1,5 +1,7 @@
 "use client"
 
+//process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 import { useState } from 'react';
 
 interface FormData {
@@ -29,6 +31,8 @@ const AddUser = () => {
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
      // Handle input change
      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +65,44 @@ const AddUser = () => {
 };
 
    // Handle form submission
-   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validateForm()) {
-        console.log("Form is valid, submitting data:", formData);
-        // Call API to add user
-    } else {
+
+    if (!validateForm()) {
         console.log("Form is invalid, please fix the errors.");
+        return;
+    }
+
+    try {
+        const response = await fetch("https://localhost:7118/api/Users", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData), // Convert form data to JSON
+        });
+
+        if (response.ok) {
+            setSuccessMessage("User added successfully!");
+            setErrorMessage(null);
+            setFormData({
+                name: "",
+                surname: "",
+                vatNumber: "",
+                address: "",
+                phoneNumber: "",
+                email: "",
+                password: "",
+            });
+        } else {
+            const errorData = await response.json();
+            setSuccessMessage(null);
+            setErrorMessage(`Error: ${errorData.message || "Failed to add user."}`);
+        }
+    } catch (error) {
+        console.error("Error sending request:", error);
+        setSuccessMessage(null);
+        setErrorMessage("Error: Unable to connect to the server.");
     }
 };
 
@@ -148,6 +183,10 @@ return (
 
                 <button type="submit" className="btn btn-primary pl-7 pr-7">Add User</button>           
             </div>    
+
+            {/* Success and Error Messages */}
+            {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+            {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
         </form>
     </>
 );
