@@ -23,8 +23,10 @@ const Users = async () => {
       {users.map((user) => (
         <UserCard  key={user.id} id={user.id} name={user.name} surname={user.surname} />
       ))}
+    </div>    
+    <div className="flex flex-col items-center ">
+      <Link href="users/add-user" className="btn btn-primary">Add New User</Link>
     </div>
-    <Link href="users/add-user"><button className="btn btn-primary mx-auto ">Add New User</button></Link>
     </>
 
   );

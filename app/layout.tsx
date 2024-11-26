@@ -74,8 +74,8 @@ export default function RootLayout({
           </div>
         </header>
         {children}
-        <footer>
-          footer
+        <footer className='text-gray-400 text-center text-xs py-5'>
+          Currently the #1 app in the world!
         </footer></body>
     </html>
   )
