@@ -2,7 +2,7 @@ export const URLS = {
     root: "/",
     users: "/users",
     user: (id: string) => `/users/${id}`,
-    entities: "/entities",
+    properties: (id: string) => `/users/${id}/properties`,
     about: "/about",
     pricing: "/pricing",
     todos: "/todos",
