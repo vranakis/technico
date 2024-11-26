@@ -2,7 +2,7 @@ import Link from "next/link";
 import { URLS } from "@/app/lib/constants";
 import type { User } from "@/types/Users";
 
-type UserCardProps = User & { id?: string };
+type UserCardProps = User & { id: string };
 
 const UserCard = ({ id, name, surname }: UserCardProps) => {
     return (
@@ -10,6 +10,7 @@ const UserCard = ({ id, name, surname }: UserCardProps) => {
         <h3 className="text-xl font-bold mb-2">
           {id ? <Link href={URLS.user(id)}>{name} {surname}</Link> : name}
         </h3>
+        {<Link href={URLS.user(id)} passHref><button className="btn btn-primary mt-2">Edit</button></Link>}
       </div>
     );
   };

@@ -1,5 +1,5 @@
 export type User = {
-    id: string | undefined;
+    id?: string;
     name?: string;
     surname?: string;
     vatNumber?: string;
