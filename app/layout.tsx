@@ -3,8 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
 import Users from './users/page'
-import ProtectedRoute from '@/components/ProtectedRoute'
-import LogoutButton from '@/components/LogOutButton'
+import ProtectedRoute from '@/app/components/ProtectedRoute'
+import LogoutButton from '@/app/components/LogOutButton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -42,36 +42,18 @@ export default function RootLayout({
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                  <li><Link href="/properties">Properties</Link></li>
-                  <li>
-                    <a>Users</a>
-                    <ul className="p-2">
-                      <li><Link href="/users">All Users</Link></li>
-                      <li><Link href="/users/add-user">Add User</Link></li>
-                    </ul>
-                  </li>
-                  <li><a>Item 3</a></li>
+                  <li><Link href="/users">All Users</Link></li>
+                  
                 </ul>
               </div>
               <Link href="/" className="btn btn-ghost text-xl">Technico v16</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">
-              <li><Link href="/properties">Properties</Link></li>
-                <li>
-                  <details>
-                    <summary>Users</summary>
-                    <ul className="p-2">
-                      <li><Link href="/users">All Users</Link></li>
-                      <li><Link href="/users/add-user">Add User</Link></li>
-                    </ul>
-                  </details>
-                </li>
-                <li><a>Item 3</a></li>
+              <li><Link href="/users">All Users</Link></li>                
               </ul>
             </div>
             <div className="navbar-end">
-              <a className="btn">Admin Login</a>
               <LogoutButton></LogoutButton>
             </div>
           </div>

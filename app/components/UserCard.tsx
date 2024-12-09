@@ -17,7 +17,7 @@ const UserCard = ({ id, name, surname, onDelete }: UserCardProps) => {
         <h3 className="text-xl font-bold mb-2 text-center p-2">
           {id ? <Link href={URLS.properties(id)}>{name} {surname}</Link> : name}
         </h3><div className="flex justify-center">
-        <Link href={URLS.user(id)} passHref><button className="btn btn-primary mr-1 mb-2">Edit</button></Link>
+        <Link href={URLS.edit_user(id)} passHref><button className="btn btn-primary mr-1 mb-2">Edit</button></Link>
         <button onClick={handleDelete} className="btn text-gray-50 bg-red-500 ml-1 mb-2">Delete</button>
       </div></div>
     );

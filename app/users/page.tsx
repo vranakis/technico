@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import UserCard from "@/components/UserCard";
+import UserCard from "@/app/components/UserCard";
 import { UserResponse } from "@/types/Users";
 import Link from "next/link";
 

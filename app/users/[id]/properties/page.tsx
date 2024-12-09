@@ -1,42 +1,43 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
-import PropertyCard from "@/components/PropertyCard";
+import PropertyCard from "@/app/components/PropertyCard";
 
 interface PropertyItem {
-  id: string;
+  id: string; // Property ID
   address: string;
   yearOfConstruction: number;
   propertyType: string;
+  ownerId: string;
 }
 
 const PropertiesPage = () => {
   const params = useParams();
-  const router = useRouter();
-  const id = params?.id;
+  //const userId = params?.id; // Extract user ID from the URL
+  const userId = Array.isArray(params?.id) ? params.id[0] : params?.id || "";
 
   const [properties, setProperties] = useState<PropertyItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!userId) return;
 
     const fetchProperties = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(`https://localhost:7118/api/PropertyItem/${id}`);
+        const response = await fetch(`https://localhost:7118/api/PropertyItem/${userId}`);
 
         if (!response.ok) {
           throw new Error(`Error ${response.status}: Failed to fetch properties`);
         }
 
         const data = await response.json();
-        setProperties(data);
+        setProperties(data); // Assuming data is an array of PropertyItems
       } catch (err: any) {
         setError(err.message || "An error occurred while fetching properties.");
       } finally {
@@ -45,11 +46,16 @@ const PropertiesPage = () => {
     };
 
     fetchProperties();
-  }, [id]);
+  }, [userId]);
 
   const handleDelete = async (propertyId: string) => {
+    if (!propertyId) {
+      console.error("Error: propertyId is undefined or null");
+      return;
+    }
+
     try {
-      const response = await fetch(`https://localhost:7118/api/PropertyItem/${propertyId}`, {
+      const response = await fetch(`https://localhost:7118/api/PropertyItem?propertyItemId=${propertyId}`, {
         method: "DELETE",
       });
 
@@ -70,11 +76,6 @@ const PropertiesPage = () => {
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-2xl font-bold text-center mb-6">User Properties</h1>
-      <div className="flex flex-col items-center mb-6">
-        <Link href={`/users/${id}/properties/add-property`} className="btn btn-primary">
-          Add New Property
-        </Link>
-      </div>
       {properties.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {properties.map((property) => (
@@ -84,6 +85,7 @@ const PropertiesPage = () => {
               address={property.address}
               yearOfConstruction={property.yearOfConstruction}
               propertyType={property.propertyType}
+              userId={userId}
               onDelete={handleDelete}
             />
           ))}
@@ -91,7 +93,12 @@ const PropertiesPage = () => {
       ) : (
         <p className="text-center">No properties found for this user.</p>
       )}
-    </div>
+      <div className="flex flex-col items-center mt-6">
+        <Link href={`/users/${userId}/properties/add-property`} className="btn btn-primary">
+          Add New Property
+        </Link>
+      </div>
+    </div>    
   );
 };
 
