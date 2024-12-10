@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../components/AuthContext";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ const Login = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+    const {fireReload} = useAuth();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,9 +26,25 @@ const Login = () => {
                 setIsLoading(false);
                 router.push("/");
             }, 2000);
-        } else {
+        }
+        else if (username ==="user" && password === "user") {
+            console.log("he");
+            setError(null);
+            setIsLoading(true);
+            localStorage.setItem("token", "mock-user-token");
+
+            // Redirect to the front page after 2 seconds
+            setTimeout(() => {
+                setIsLoading(false);
+                router.push("/");
+            }, 2000);
+        } 
+        else {
+            localStorage.setItem("token", "no-token");
             setError("Invalid credentials");
         }
+
+        fireReload();
     };
 
     return (
