@@ -3,60 +3,84 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../components/AuthContext";
+import { URLS } from "../lib/constants";
+
+interface LoginRequestDto
+{
+    email: string,
+    password: string
+}
+
+interface LoginResponseDto
+{
+ id: string,
+ email: string,
+ isAdmin: boolean
+}
 
 const Login = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const {fireReload} = useAuth();
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const [user, setUser] = useState<LoginResponseDto | null>(null);
+    
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Mock credentials
-        if (username === "admin" && password === "admin") {
-            setError(null);
-            setIsLoading(true); // Show loading indicator
-            localStorage.setItem("token", "mock-admin-token");
+        //const fetchUser = async () => {
+            try {
+              setIsLoading(true);
+              const response = await fetch("https://localhost:7118/api/Users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({email, password})
+              });
 
-            // Redirect to the front page after 2 seconds
-            setTimeout(() => {
-                setIsLoading(false);
-                router.push("/");
-            }, 2000);
-        }
-        else if (username ==="user" && password === "user") {
-            console.log("he");
-            setError(null);
-            setIsLoading(true);
-            localStorage.setItem("token", "mock-user-token");
+              if (!response.ok) {
+                throw new Error(`Error ${response.status}: Failed to fetch user data`);
+              }
+              
+              const userData: LoginResponseDto = await response.json();
+              setUser(userData);
 
-            // Redirect to the front page after 2 seconds
-            setTimeout(() => {
-                setIsLoading(false);
+              console.log("Login successful:", userData);
+
+              // Redirect based on role
+              if (!userData.isAdmin) {
+                localStorage.setItem("token", "mock-user-token");
+                router.push(URLS.edit_user(userData.id));
+              }
+              else {
+                localStorage.setItem("token", "mock-admin-token");
                 router.push("/");
-            }, 2000);
-        } 
-        else {
-            localStorage.setItem("token", "no-token");
-            setError("Invalid credentials");
-        }
+              }
+
+            } catch (err: any) {
+              setError(err.message || "An error occurred while fetching user data.");
+            } finally {
+              setIsLoading(false);;            
+          }; 
 
         fireReload();
+        console.log(user);
     };
 
     return (
         <div className="flex flex-col items-center mt-20">
-            <h1 className="text-2xl mb-5">Admin Login</h1>
+            <h1 className="text-3xl mb-5">Welcome to Technico ;-)</h1>
+            <h3 className="text-2xl mb-5">Login</h3>
             <form onSubmit={handleSubmit} className="w-96 p-4 border rounded-lg">
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Email"
                     className="input input-bordered w-full mb-2"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                 />
                 <input
@@ -75,6 +99,7 @@ const Login = () => {
                 >
                     {isLoading ? "Logging in..." : "Login"}
                 </button>
+                <div className="flex justify-center mt-2"><a text-center className=" font-medium text-slate-500 dark:text-blue-500 hover:underline" href="users/add-user">Subscribe</a></div>
             </form>
         </div>
     );

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/app/components/AuthContext";
 
 interface User {
   name: string;
@@ -21,6 +22,7 @@ const EditUser = () => {
   const params = useParams();
   const router = useRouter();
   const id = params?.id;
+  const {isAuthenticated} = useAuth();
 
   const [formData, setFormData] = useState<User>({
     name: "",
@@ -39,25 +41,26 @@ const EditUser = () => {
 
   useEffect(() => {
     if (!id) return;
-
-    const fetchUser = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`https://localhost:7118/api/Users/${id}`);
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: Failed to fetch user data`);
-        }
-        const user = await response.json();
-        setFormData(user);
-      } catch (err: any) {
-        setErrorMessage(err.message || "An error occurred while fetching user data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUser();
-  }, [id]);
+  }, [id, isAuthenticated]);
+
+  const fetchUser = async () => {
+    if (!isAuthenticated) return;
+    
+    try {
+      setLoading(true);
+      const response = await fetch(`https://localhost:7118/api/Users/${id}`);
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: Failed to fetch user data`);
+      }
+      const user = await response.json();
+      setFormData(user);
+    } catch (err: any) {
+      setErrorMessage(err.message || "An error occurred while fetching user data.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -116,7 +119,7 @@ const EditUser = () => {
 
       setSuccessMessage("User updated successfully!");
       setTimeout(() => {
-        router.push("/users");
+        router.back();
       }, 2000);
     } catch (err: any) {
       setErrorMessage(err.message || "An error occurred while updating the user.");

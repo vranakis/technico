@@ -11,6 +11,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
+  // const {isAuthenticated, isAdmin} = useAuth();
+  
+  // console.log("heheXD RootLayout, {isAuthenticated, isAdmin} =", isAuthenticated, isAdmin);
+
   return (
     <html lang="en">
       <body>
@@ -29,12 +34,13 @@ export default function RootLayout({
 }
 
 
-
 function Navbar() {
   const {isAuthenticated, isAdmin} = useAuth();
 
-  console.log("heheXD ", isAuthenticated, isAdmin);
+
+  console.log("heheXD navbar, {isAuthenticated, isAdmin} =", isAuthenticated, isAdmin);
   
+
   if (!isAuthenticated){
     return <LoggedOutNavbar />;
   }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/app/components/AuthContext";
 
 interface FormData {
   address: string;
@@ -27,6 +28,7 @@ const AddProperty = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const {isAuthenticated} = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -68,7 +70,7 @@ const AddProperty = () => {
         setErrorMessage(null);
         setFormData({ address: "", yearOfConstruction: 0, propertyType: "" });
         setTimeout(() => {
-          router.push(`/users/${id}/properties`);
+          router.back();
         }, 1000);
       } else {
         const errorData = await response.json();
@@ -82,7 +84,7 @@ const AddProperty = () => {
     }
   };
 
-  return (
+  return (<>{isAuthenticated &&
     <div className="container mx-auto mt-8">
       <h1 className="text-center text-2xl font-bold mb-4">Add Property</h1>
       <form onSubmit={handleSubmit}>
@@ -126,8 +128,8 @@ const AddProperty = () => {
         {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
         {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
       </form>
-    </div>
-  );
+    </div>}
+    </>);
 };
 
 export default AddProperty;

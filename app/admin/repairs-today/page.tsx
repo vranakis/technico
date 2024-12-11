@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from "@/app/components/AuthContext";
 import RepairCard from "@/app/components/RepairCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -25,32 +26,34 @@ const TodaysRepairs = () => {
     const [repairs, setRepairs] = useState<Repair[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { isAdmin } = useAuth();
 
     useEffect(() => {
+            fetchRepairs();
+        }, [isAdmin]);
 
-        const fetchProperties = async () => {
-            try {
-                setLoading(true);
-                setError(null);
+        const fetchRepairs = async () => {
+          if (!isAdmin) return;
 
-                const response = await fetch(`https://localhost:7118/api/Repairs`);
+          try {
+              setLoading(true);
+              setError(null);
 
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: Failed to fetch properties`);
-                }
+              const response = await fetch(`https://localhost:7118/api/Repairs`);
 
-                const data = await response.json();
-                console.log("Fetched Repairs:", data);
-                setRepairs(data); // Assuming data is an array of Repairs
-            } catch (err: any) {
-                setError(err.message || "An error occurred while fetching properties."); 
-            } finally {
-                setLoading(false);
-            }
-            };
+              if (!response.ok) {
+                  throw new Error(`Error ${response.status}: Failed to fetch properties`);
+              }
 
-            fetchProperties();
-        }, []);
+              const data = await response.json();
+              console.log("Fetched Repairs:", data);
+              setRepairs(data); // Assuming data is an array of Repairs
+          } catch (err: any) {
+              setError(err.message || "An error occurred while fetching properties."); 
+          } finally {
+              setLoading(false);
+          }
+          };
 
         const handleDelete = async (repairId: string) => {
             if (!repairId) {

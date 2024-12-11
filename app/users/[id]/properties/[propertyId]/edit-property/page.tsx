@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/app/components/AuthContext";
 
 interface FormData {
   address: string;
@@ -18,7 +19,8 @@ const EditProperty = () => {
   const params = useParams();
   const router = useRouter();
   const userId = params?.id;
-  const propertyId = params?.propertyId
+  const propertyId = params?.propertyId  
+  const {isAuthenticated} = useAuth();
 
   const [formData, setFormData] = useState<FormData>({
     address: "",
@@ -33,27 +35,28 @@ const EditProperty = () => {
 
   useEffect(() => {
     if (!propertyId) return;
-
-    const fetchProperty = async () => {
-        try{
-            setLoading(true);
-            const response = await fetch (`https://localhost:7118/api/PropertyItem/property/${propertyId}`);
-            if (!response.ok){
-                throw new Error(`Error ${response.status}: Failed to fetch repair data`);
-            }
-            const repair = await response.json();
-            setFormData(repair);
-        }
-        catch (err: any){
-            setErrorMessage(err.message || "An error occured while fetching repair data.");
-        }
-        finally {
-            setLoading(false);
-        }
-    };
-
     fetchProperty();
-  }, [propertyId]);
+  }, [propertyId, isAuthenticated]);
+
+  const fetchProperty = async () => {
+    if (!isAuthenticated) return;
+        
+    try{
+        setLoading(true);
+        const response = await fetch (`https://localhost:7118/api/PropertyItem/property/${propertyId}`);
+        if (!response.ok){
+            throw new Error(`Error ${response.status}: Failed to fetch repair data`);
+        }
+        const repair = await response.json();
+        setFormData(repair);
+    }
+    catch (err: any){
+        setErrorMessage(err.message || "An error occured while fetching repair data.");
+    }
+    finally {
+        setLoading(false);
+    }
+};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -95,7 +98,7 @@ const EditProperty = () => {
         setErrorMessage(null);
         setFormData({ address: "", yearOfConstruction: 0, propertyType: "" });
         setTimeout(() => {
-          router.push(`/users/${userId}/properties`);
+          router.back();
         }, 1000);
       } else {
         const errorData = await response.json();

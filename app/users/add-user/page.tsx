@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from 'next/navigation';
 //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 import { useState } from 'react';
@@ -19,7 +20,7 @@ interface FormErrors {
 }
 
 const AddUser = () => {
-
+    const router = useRouter();
     const [formData, setFormData] = useState<FormData>({
         name: '',
         surname: '',
@@ -94,6 +95,9 @@ const AddUser = () => {
                 email: "",
                 password: "",
             });
+            setTimeout(() => {
+                router.back();
+              }, 1000);
         } else {
             const errorData = await response.json();
             setSuccessMessage(null);

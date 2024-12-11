@@ -4,14 +4,26 @@ import { useState, useEffect } from "react";
 import UserCard from "@/app/components/UserCard";
 import { UserResponse } from "@/types/Users";
 import Link from "next/link";
+import { AuthProvider, useAuth } from '../components/AuthContext';
 
 const Users = () => {
   const [users, setUsers] = useState<UserResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const {isAdmin} = useAuth();
 
-  // Function to fetch users
+
+  useEffect(() => {
+    fetchUsers();
+  }, [isAdmin]);  
+
+
   const fetchUsers = async () => {
+    if (!isAdmin){
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -29,8 +41,9 @@ const Users = () => {
       setError(err.message || "An error occurred while fetching users.");
     } finally {
       setLoading(false);
-    }
+    }  
   };
+
 
   const handleDelete = async (id: string) => {
     try {
@@ -49,16 +62,12 @@ const Users = () => {
     }
   };
 
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
-  return (
-    <>
+  return (<>    
+    {isAdmin ? <>
       <div className="my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {users.map((user) => (
           <UserCard key={user.id} id={user.id} name={user.name} surname={user.surname} onDelete={handleDelete} />
@@ -69,7 +78,10 @@ const Users = () => {
           Add New User
         </Link>
       </div>
-    </>
+      
+    </>: <p className="p-3 mt-6 text-lg/8 text-gray-600">You are not authorized to view this content. <br />Log in as admin and try again.</p>}
+    
+      </>
   );
 };
 

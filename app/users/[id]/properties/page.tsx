@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import PropertyCard from "@/app/components/PropertyCard";
+import { useAuth } from "@/app/components/AuthContext";
 
 interface PropertyItem {
   id: string; // Property ID
@@ -21,11 +22,16 @@ const PropertiesPage = () => {
   const [properties, setProperties] = useState<PropertyItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const {isAuthenticated} = useAuth();
 
   useEffect(() => {
     if (!userId) return;
+    fetchProperties();
+  }, [userId, isAuthenticated]);
 
-    const fetchProperties = async () => {
+  const fetchProperties = async () => {      
+    if (!isAuthenticated) return;
+
       try {
         setLoading(true);
         setError(null);
@@ -44,9 +50,6 @@ const PropertiesPage = () => {
         setLoading(false);
       }
     };
-
-    fetchProperties();
-  }, [userId]);
 
   const handleDelete = async (propertyId: string) => {
     if (!propertyId) {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import { useAuth } from "@/app/components/AuthContext";
 
 interface FormData
 {
@@ -23,7 +24,7 @@ const EditRepair = () => {
     const router = useRouter();
     const repairId = params?.repairId;
     const id = params?.id;
-    const propertyItemId = Array.isArray(params?.propertyId) ? params.propertyId[0] : params?.propertyId || "";
+    const {isAuthenticated} = useAuth();    
 
     const [formData, setFormData] = useState<FormData>({
         scheduledDate: new Date(),
@@ -42,26 +43,28 @@ const EditRepair = () => {
     useEffect(() => {
         if (!repairId) return;
 
-        const fetchRepair = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch(`https://localhost:7118/api/Repairs/${repairId}`);
-                if (!response.ok){
-                    throw new Error(`Error ${response.status}: Failed to fetch repair data`);
-                }
-                const repair = await response.json();
-                setFormData(repair);
-            }
-            catch (err: any){
-                setErrorMessage(err.message || "An error occured while fetching repair data.");
-            }
-            finally {
-                setLoading(false);
-            }
-        };
-
         fetchRepair();
-    }, [repairId]);
+    }, [repairId, isAuthenticated]);
+
+    const fetchRepair = async () => {
+        if (!isAuthenticated) return;
+
+        try {
+            setLoading(true);
+            const response = await fetch(`https://localhost:7118/api/Repairs/${repairId}`);
+            if (!response.ok){
+                throw new Error(`Error ${response.status}: Failed to fetch repair data`);
+            }
+            const repair = await response.json();
+            setFormData(repair);
+        }
+        catch (err: any){
+            setErrorMessage(err.message || "An error occured while fetching repair data.");
+        }
+        finally {
+            setLoading(false);
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -93,7 +96,7 @@ const EditRepair = () => {
                 repairId: "",
             });
             setTimeout(() => {
-                router.push(`/users/${id}/properties/${propertyItemId}`);
+                router.back();
             }, 1000);
             } else {
             const errorData = await response.json();

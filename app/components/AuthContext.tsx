@@ -34,7 +34,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setAuth({ isAuthenticated: false, isAdmin: false });
       console.log("no-token");
-      if (window.location.pathname !== '/login') router.push('/login');
+      if (window.location.pathname !== ('/login') && window.location.pathname !== ('/users/add-user')) router.push('/login');
+      
     }
   }, [router, reload]);
 

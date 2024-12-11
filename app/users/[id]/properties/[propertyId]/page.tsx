@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from "@/app/components/AuthContext";
 import RepairCard from "@/app/components/RepairCard";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -23,33 +24,35 @@ const Property = () => {
     const [repairs, setRepairs] = useState<Repair[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const {isAuthenticated} = useAuth();
 
     // Exw na ftiaksw to GetRepairs(propertyId) end-point 
     useEffect(() => {
         if (!propertyId) return;
+            fetchRepairs();
+        }, [propertyId, isAuthenticated]);
 
-        const fetchProperties = async () => {
-            try {
-                setLoading(true);
-                setError(null);
+        const fetchRepairs = async () => {
+          if (!isAuthenticated) return;
 
-                const response = await fetch(`https://localhost:7118/api/Repairs/property/${propertyId}`); // fix this
+          try {
+              setLoading(true);
+              setError(null);
 
-                if (!response.ok) {
-                    throw new Error(`Error ${response.status}: Failed to fetch properties`);
-                }
+              const response = await fetch(`https://localhost:7118/api/Repairs/property/${propertyId}`); // fix this
 
-                const data = await response.json();
-                setRepairs(data); // Assuming data is an array of Repairs
-            } catch (err: any) {
-                setError(err.message || "An error occurred while fetching properties."); 
-            } finally {
-                setLoading(false);
-            }
-            };
+              if (!response.ok) {
+                  throw new Error(`Error ${response.status}: Failed to fetch properties`);
+              }
 
-            fetchProperties();
-        }, [propertyId]);
+              const data = await response.json();
+              setRepairs(data); // Assuming data is an array of Repairs
+          } catch (err: any) {
+              setError(err.message || "An error occurred while fetching properties."); 
+          } finally {
+              setLoading(false);
+          }
+          };
 
         const handleDelete = async (repairId: string) => {
             if (!repairId) {
@@ -72,6 +75,9 @@ const Property = () => {
               setError(err.message || "An error occurred while deleting the repair.");
             }
           };
+    
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
 
     return(<>
     <p className="text-1xl font-bold text-center mt-2">User ID: {userId}</p>

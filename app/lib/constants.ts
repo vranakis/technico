@@ -1,6 +1,7 @@
 export const URLS = {
     root: "/",
     users: "/users",
+    view_user: (id: string) => `/users/${id}`,
     edit_user: (id: string) => `/users/${id}/edit-user`,
     properties: (id: string) => `/users/${id}/properties`,
     edit: (id: string) => `/property/${id}`,

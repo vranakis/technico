@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useAuth } from "@/app/components/AuthContext";
 
 interface FormData 
 {
@@ -24,6 +25,7 @@ const AddRepair = () => {
     const router = useRouter();    
     const id = params?.id;
     const propertyItemId = Array.isArray(params?.propertyId) ? params.propertyId[0] : params?.propertyId || "";
+    const {isAuthenticated} = useAuth();
 
     const [formData, setFormData] = useState<FormData>({
         scheduledDate: new Date(),
@@ -91,7 +93,7 @@ const AddRepair = () => {
               propertyItemId: "",
             });
             setTimeout(() => {
-              router.push(`/users/${id}/properties/${propertyItemId}`);
+              router.back();
             }, 1000);
           } else {
             const errorData = await response.json();
@@ -106,7 +108,8 @@ const AddRepair = () => {
       };
 
       return (
-        <div className="container mx-auto mt-8">
+        <>
+        {isAuthenticated && <div className="container mx-auto mt-8">
           <h1 className="text-center text-2xl font-bold mb-4">Add Repair</h1>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col items-center">
@@ -181,7 +184,8 @@ const AddRepair = () => {
             {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
             {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
           </form>
-        </div>
+        </div>}
+        </>
       );
     };
     
