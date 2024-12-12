@@ -4,6 +4,7 @@ import './globals.css';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import Link from 'next/link';
 import LogoutButton from './components/LogOutButton';
+import { URLS } from './lib/constants';
 
 
 export default function RootLayout({
@@ -74,15 +75,18 @@ return(
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><Link href="/users">All Users</Link></li>
-                
+                <li><Link href="/users">Users</Link></li>
+                <li><Link href="/admin/all-properties">Properties</Link></li>
+                <li><Link href="/admin/repairs-today">Repairs</Link></li>
               </ul>
             </div>
             <Link href="/" className="btn btn-ghost text-xl">Technico v16</Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
-            <li><Link href="/users">All Users</Link></li>                
+              <li><Link href="/users">Users</Link></li>
+              <li><Link href="/admin/all-properties">Properties</Link></li>
+              <li><Link href="/admin/repairs-today">Repairs</Link></li>             
             </ul>
           </div>
           <div className="navbar-end">
@@ -93,6 +97,7 @@ return(
 }
 
 function UserNavbar(){
+  const {userId} = useAuth();
   return(
           <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -114,7 +119,9 @@ function UserNavbar(){
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                  <li><Link href="/users">Profile</Link></li>
+                  <li><Link href={URLS.view_user(userId)}>Profile</Link></li>
+                  <li><Link href={URLS.properties(userId)}>Properties</Link></li>
+                  <li><Link href="/users">Repairs</Link></li>           
                   
                 </ul>
               </div>
@@ -122,7 +129,9 @@ function UserNavbar(){
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">
-              <li><Link href="/users">Profile</Link></li>                
+                <li><Link href={URLS.view_user(userId)}>Profile</Link></li>
+                <li><Link href={URLS.properties(userId)}>Properties</Link></li>
+                <li><Link href="/users">Repairs</Link></li>           
               </ul>
             </div>
             <div className="navbar-end">

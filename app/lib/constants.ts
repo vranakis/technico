@@ -6,6 +6,7 @@ export const URLS = {
     properties: (id: string) => `/users/${id}/properties`,
     edit: (id: string) => `/property/${id}`,
     property: (userId: string, propertyId: string) => `/users/${userId}/properties/${propertyId}`,    
+    add_property: (userId: string,) => `/users/${userId}/properties/add-property`,
     edit_property: (userId: string, propertyId: string) => `/users/${userId}/properties/${propertyId}/edit-property`,
     repair: (userId: string, propertyId: string, repairId: string) => `/users/${userId}/properties/${propertyId}/repairs/${repairId}`,
     edit_repair: (userId: string, propertyId: string, repairId: string) => `/users/${userId}/properties/${propertyId}/repairs/${repairId}/edit-repair`,

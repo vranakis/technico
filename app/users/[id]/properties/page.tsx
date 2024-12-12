@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import PropertyCard from "@/app/components/PropertyCard";
 import { useAuth } from "@/app/components/AuthContext";
+import { URLS } from "@/app/lib/constants";
 
 interface PropertyItem {
   id: string; // Property ID
@@ -97,7 +98,7 @@ const PropertiesPage = () => {
         <p className="text-center">No properties found for this user.</p>
       )}
       <div className="flex flex-col items-center mt-6">
-        <Link href={`/users/${userId}/properties/add-property`} className="btn btn-primary">
+        <Link href={URLS.add_property(userId)} className="btn btn-primary">
           Add New Property
         </Link>
       </div>

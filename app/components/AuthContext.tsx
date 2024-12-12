@@ -4,6 +4,7 @@ import { createContext, ReactNode, useContext, useState, useEffect } from 'react
 import { useRouter } from 'next/navigation';
 
 interface AuthStatus {
+  userId: string;
   isAuthenticated: boolean;
   isAdmin: boolean;
 }
@@ -15,7 +16,7 @@ interface AuthContextType extends AuthStatus {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [auth, setAuth] = useState<AuthStatus>({ isAuthenticated: false, isAdmin: false });
+  const [auth, setAuth] = useState<AuthStatus>({ isAuthenticated: false, isAdmin: false, userId: "" });
   const [reload, setReload] = useState(false);
   const router = useRouter();
 
@@ -25,14 +26,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token === 'mock-admin-token') {
-      setAuth({ isAuthenticated: true, isAdmin: true });
-      console.log("mock-admin-token");
-    } else if (token === 'mock-user-token') {
-      setAuth({ isAuthenticated: true, isAdmin: false });
-      console.log("mock-user-token");
+    const storedUserId = localStorage.getItem('userId');
+
+    if (token === 'mock-admin-token' && storedUserId) {
+      setAuth({ isAuthenticated: true, isAdmin: true, userId: storedUserId});
+
+    } else if (token === 'mock-user-token' && storedUserId) {
+      setAuth({ isAuthenticated: true, isAdmin: false, userId: storedUserId });
+    
     } else {
-      setAuth({ isAuthenticated: false, isAdmin: false });
+      setAuth({ isAuthenticated: false, isAdmin: false, userId: "" });
       console.log("no-token");
       if (window.location.pathname !== ('/login') && window.location.pathname !== ('/users/add-user')) router.push('/login');
       

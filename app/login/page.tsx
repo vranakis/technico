@@ -30,7 +30,7 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        //const fetchUser = async () => {
+            // Fetch Users
             try {
               setIsLoading(true);
               const response = await fetch("https://localhost:7118/api/Users/login", {
@@ -48,15 +48,18 @@ const Login = () => {
               const userData: LoginResponseDto = await response.json();
               setUser(userData);
 
+              
+              localStorage.setItem("userId", userData.id)
+              
+              localStorage.setItem("token", userData.isAdmin ? "mock-admin-token" : "mock-user-token");
+
               console.log("Login successful:", userData);
 
               // Redirect based on role
               if (!userData.isAdmin) {
-                localStorage.setItem("token", "mock-user-token");
                 router.push(URLS.edit_user(userData.id));
               }
               else {
-                localStorage.setItem("token", "mock-admin-token");
                 router.push("/");
               }
 
@@ -99,7 +102,7 @@ const Login = () => {
                 >
                     {isLoading ? "Logging in..." : "Login"}
                 </button>
-                <div className="flex justify-center mt-2"><a text-center className=" font-medium text-slate-500 dark:text-blue-500 hover:underline" href="users/add-user">Subscribe</a></div>
+                <div className="flex justify-center mt-2"><a className="font-medium text-slate-500 dark:text-blue-500 hover:underline" href="users/add-user">Subscribe</a></div>
             </form>
         </div>
     );
