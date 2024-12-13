@@ -37,8 +37,8 @@ yarn-error.log*
 next-env.d.ts
 
 # Backend
-/bin/
-/obj/
-/*.user
-/*.vs
-/appsettings*.json
+/Technico/bin/
+/Technico/obj/
+/Technico/*.user
+/Technico/*.vs
+/Technico/appsettings*.json
