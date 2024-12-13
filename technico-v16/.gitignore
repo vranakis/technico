@@ -35,10 +35,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# Backend
-/Technico/bin/
-/Technico/obj/
-/Technico/*.user
-/Technico/*.vs
-/Technico/appsettings*.json
