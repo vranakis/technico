@@ -1,5 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Frontend
 # dependencies
 /node_modules
 /.pnp
@@ -34,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Backend
+/bin/
+/obj/
+/*.user
+/*.vs
+/appsettings*.json
