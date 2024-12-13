@@ -11,5 +11,7 @@ namespace Technico.Interfaces
     {
         Task<User?> AuthenticateUser(string email, string password);
         Task<int> CountAsync();
+        Task<List<User>?> GetAllAsync(int pageCount, int pageSize);
+        Task<List<User>> SearchUsersAsync(string searchQuery);
     }
 }

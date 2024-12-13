@@ -8,33 +8,24 @@ import { useAuth } from "../components/AuthContext";
 
 const Users = () => {
     const [users, setUsers] = useState<UserResponse[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<UserResponse[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [searchQuery, setSearchQuery] = useState<string>(""); // Search query
     const [pageCount, setPageCount] = useState<number>(1); // Current page
     const [totalUsers, setTotalUsers] = useState<number>(0); // Total users from backend
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { isAdmin } = useAuth();
 
-    const totalPages = Math.ceil(totalUsers / 3); // Assuming 3 users per page
+    const totalPages = Math.ceil(totalUsers / 3); // Assuming 10 users per page
 
     useEffect(() => {
-        fetchUsers();
-    }, [isAdmin, pageCount]); // Re-fetch users when page changes
+        if (searchQuery) {
+            fetchSearchResults(); // Fetch search results
+        } else {
+            fetchPaginatedUsers(); // Fetch paginated users
+        }
+    }, [isAdmin, pageCount, searchQuery]); // Re-fetch when page or query changes
 
-    useEffect(() => {
-        // Filter users based on the search query
-        const query = searchQuery.toLowerCase();
-        setFilteredUsers(
-            users.filter(
-                (user) =>
-                    user.name?.toLowerCase().includes(query) ||
-                    user.surname?.toLowerCase().includes(query)
-            )
-        );
-    }, [searchQuery, users]);
-
-    const fetchUsers = async () => {
+    const fetchPaginatedUsers = async () => {
         if (!isAdmin) {
             setLoading(false);
             return;
@@ -43,19 +34,50 @@ const Users = () => {
         try {
             setLoading(true);
             setError(null);
-            const res = await fetch(`https://localhost:7118/api/Users/paginated?pageCount=${pageCount}&pageSize=3`, {
-                cache: "no-store",
-            });
+
+            const res = await fetch(
+                `https://localhost:7118/api/Users/paginated?pageCount=${pageCount}&pageSize=3`,
+                { cache: "no-store" }
+            );
 
             if (!res.ok) {
-                throw new Error("Failed to fetch users data");
+                throw new Error("Failed to fetch paginated users");
             }
 
             const data = await res.json();
-            setUsers(data.users); // Users array for the current page
+            setUsers(data.users); // Users for the current page
             setTotalUsers(data.totalUsers); // Total count of all users
         } catch (err: any) {
             setError(err.message || "An error occurred while fetching users.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchSearchResults = async () => {
+        if (!isAdmin) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError(null);
+
+            const res = await fetch(
+                `https://localhost:7118/api/Users/search?searchQuery=${searchQuery}`,
+                { cache: "no-store" }
+            );
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch search results");
+            }
+
+            const data = await res.json();
+            setUsers(data); // Use search results directly
+            setTotalUsers(data.length); // Total count of search results
+        } catch (err: any) {
+            setError(err.message || "An error occurred while searching users.");
         } finally {
             setLoading(false);
         }
@@ -92,7 +114,7 @@ const Users = () => {
                         />
                     </div>
                     <div className="my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {filteredUsers.map((user) => (
+                        {users.map((user) => (
                             <UserCard
                                 key={user.id}
                                 id={user.id}
@@ -102,17 +124,19 @@ const Users = () => {
                             />
                         ))}
                     </div>
-                    <div className="flex justify-center gap-2 my-4">
-                        {Array.from({ length: totalPages }, (_, index) => (
-                            <button
-                                key={index}
-                                className={`btn ${pageCount === index + 1 ? "btn-primary" : "btn-secondary"}`}
-                                onClick={() => setPageCount(index + 1)}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-                    </div>
+                    {!searchQuery && (
+                        <div className="flex justify-center gap-2 my-4">
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    key={index}
+                                    className={`btn ${pageCount === index + 1 ? "btn-primary" : "btn-secondary"}`}
+                                    onClick={() => setPageCount(index + 1)}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
+                    )}
                     <div className="flex flex-col items-center">
                         <Link href="users/add-user" className="btn btn-primary">
                             Add New User

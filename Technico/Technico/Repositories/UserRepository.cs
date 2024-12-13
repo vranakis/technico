@@ -92,6 +92,13 @@ public class UserRepository : IRepository<User, Guid>, IUserRepo
 
     public async Task<int> CountAsync()
     {
-        return await _context.Users.CountAsync();
+         return await _context.Users.CountAsync();
+    }
+
+    public async Task<List<User>> SearchUsersAsync(string searchQuery)
+    {
+        return await _context.Users
+            .Where(user => user.Name!.Contains(searchQuery) || user.Surname!.Contains(searchQuery))
+            .ToListAsync();
     }
 }

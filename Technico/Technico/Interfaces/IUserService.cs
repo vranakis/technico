@@ -13,4 +13,5 @@ public interface IUserService
     Task<LoginResponseDto?> AuthenticateAsync(string email, string password);
     Task<List<CreateUserDto>?> GetUsersPaginatedAsync(int pageCount, int pageSize);
     Task<int> GetTotalUsersCountAsync();
+    Task<List<CreateUserDto>> SearchUsersAsync(string searchQuery);
     }

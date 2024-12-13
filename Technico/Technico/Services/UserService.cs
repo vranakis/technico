@@ -75,7 +75,7 @@ public class UserService(IRepository<User, Guid> repo, IUserRepo userRepo) : IUs
 
     public async Task<List<CreateUserDto>?> GetUsersPaginatedAsync(int pageCount, int pageSize)
     {
-        List<User>? users = await _repo.GetAllAsync(pageCount, pageSize);
+        List<User>? users = await _userRepo.GetAllAsync(pageCount, pageSize);
 
         if (users == null || users.Count == 0)
         {
@@ -152,4 +152,22 @@ public class UserService(IRepository<User, Guid> repo, IUserRepo userRepo) : IUs
     {
         return await _userRepo.CountAsync();
     }
+
+    public async Task<List<CreateUserDto>> SearchUsersAsync(string searchQuery)
+    {
+        var users = await _userRepo.SearchUsersAsync(searchQuery);
+
+        return users.Select(user => new CreateUserDto
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Surname = user.Surname,
+            Address = user.Address,
+            PhoneNumber = user.PhoneNumber,
+            Email = user.Email,
+            Password = user.Password,
+            IsPropertyOwner = true,
+        }).ToList();
+    }
+
 }

@@ -28,18 +28,29 @@ public class UsersController : ControllerBase
         return await _service.GetAllUsersAsync();
     }
 
-    [HttpGet]
-    [Route("paginated")]
-    public async Task<ActionResult<object>> GetUsers(int pageCount = 1, int pageSize = 10)
+    [HttpGet("paginated")]
+    public async Task<ActionResult<object>> GetUsersPaginated(int pageCount = 1, int pageSize = 10)
     {
-        var totalUsers = await _service.GetTotalUsersCountAsync(); // Get total number of users
+        var totalUsers = await _service.GetTotalUsersCountAsync();
         var users = await _service.GetUsersPaginatedAsync(pageCount, pageSize);
 
         return Ok(new
         {
-            TotalUsers = totalUsers,
-            Users = users
+            totalUsers = totalUsers,
+            users = users
         });
+    }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<List<CreateUserDto>>> SearchUsers(string searchQuery)
+    {
+        if (string.IsNullOrEmpty(searchQuery))
+        {
+            return BadRequest("Search query cannot be empty.");
+        }
+
+        var users = await _service.SearchUsersAsync(searchQuery);
+        return Ok(users);
     }
 
     // GET: api/Users/5
