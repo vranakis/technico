@@ -4499,11 +4499,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
+      "projectUniqueName": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
       "projectName": "TechnicoAPI",
-      "projectPath": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
+      "projectPath": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
       "packagesPath": "C:\\Users\\svranakis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\obj\\",
+      "outputPath": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\svranakis\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4521,8 +4521,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Technico.csproj": {
-              "projectPath": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Technico.csproj"
+            "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Technico.csproj": {
+              "projectPath": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Technico.csproj"
             }
           }
         }

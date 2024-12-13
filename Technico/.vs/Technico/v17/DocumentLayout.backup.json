@@ -1,29 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\svranakis\\source\\repos\\Technico\\",
+  "WorkspaceRootPath": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{512B8EDB-E601-44F0-8F15-487989967E49}|TechnicoAPI\\TechnicoAPI.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technicoapi\\controllers\\repairscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{512B8EDB-E601-44F0-8F15-487989967E49}|TechnicoAPI\\TechnicoAPI.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technicoapi\\controllers\\repairscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{512B8EDB-E601-44F0-8F15-487989967E49}|TechnicoAPI\\TechnicoAPI.csproj|solutionrelative:technicoapi\\controllers\\repairscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technico\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technico\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|solutionrelative:technico\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technico\\interfaces\\irepairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technico\\interfaces\\irepairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|solutionrelative:technico\\interfaces\\irepairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technico\\interfaces\\irepairrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technico\\interfaces\\irepairrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|solutionrelative:technico\\interfaces\\irepairrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technico\\repositories\\repairrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technico\\repositories\\repairrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|solutionrelative:technico\\repositories\\repairrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\source\\repos\\technico\\technico\\services\\repairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|c:\\users\\svranakis\\react\\technico-app-fullstack\\technico\\technico\\services\\repairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{877FAD73-5541-45C0-A1C3-586C7B9EC50B}|Technico\\Technico.csproj|solutionrelative:technico\\services\\repairservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -40,9 +40,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "IRepository.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Repositories\\IRepository.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Repositories\\IRepository.cs",
               "RelativeDocumentMoniker": "Technico\\Repositories\\IRepository.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Repositories\\IRepository.cs",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Repositories\\IRepository.cs",
               "RelativeToolTip": "Technico\\Repositories\\IRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -52,9 +52,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "IRepairService.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Interfaces\\IRepairService.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Interfaces\\IRepairService.cs",
               "RelativeDocumentMoniker": "Technico\\Interfaces\\IRepairService.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Interfaces\\IRepairService.cs",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Interfaces\\IRepairService.cs",
               "RelativeToolTip": "Technico\\Interfaces\\IRepairService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -64,9 +64,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "IRepairRepo.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Interfaces\\IRepairRepo.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Interfaces\\IRepairRepo.cs",
               "RelativeDocumentMoniker": "Technico\\Interfaces\\IRepairRepo.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Interfaces\\IRepairRepo.cs",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Interfaces\\IRepairRepo.cs",
               "RelativeToolTip": "Technico\\Interfaces\\IRepairRepo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -76,11 +76,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "RepairsController.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\Controllers\\RepairsController.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\Controllers\\RepairsController.cs",
               "RelativeDocumentMoniker": "TechnicoAPI\\Controllers\\RepairsController.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\Controllers\\RepairsController.cs*",
-              "RelativeToolTip": "TechnicoAPI\\Controllers\\RepairsController.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAaAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\Controllers\\RepairsController.cs",
+              "RelativeToolTip": "TechnicoAPI\\Controllers\\RepairsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-12T14:45:00.506Z",
               "EditorCaption": ""
@@ -89,9 +89,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "RepairService.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Services\\RepairService.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Services\\RepairService.cs",
               "RelativeDocumentMoniker": "Technico\\Services\\RepairService.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Services\\RepairService.cs",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Services\\RepairService.cs",
               "RelativeToolTip": "Technico\\Services\\RepairService.cs",
               "ViewState": "AgIAAHAAAAAAAAAAAAAwwKUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -101,9 +101,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "RepairRepository.cs",
-              "DocumentMoniker": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Repositories\\RepairRepository.cs",
+              "DocumentMoniker": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Repositories\\RepairRepository.cs",
               "RelativeDocumentMoniker": "Technico\\Repositories\\RepairRepository.cs",
-              "ToolTip": "C:\\Users\\svranakis\\source\\repos\\Technico\\Technico\\Repositories\\RepairRepository.cs",
+              "ToolTip": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\Technico\\Repositories\\RepairRepository.cs",
               "RelativeToolTip": "Technico\\Repositories\\RepairRepository.cs",
               "ViewState": "AgIAAB8AAAAAAAAAAAAowFMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

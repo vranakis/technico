@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iKn66RdPKOY=",
+  "dgSpecHash": "OsGgkb3vWhA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\svranakis\\source\\repos\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
+  "projectFilePath": "C:\\Users\\svranakis\\react\\Technico-App-Fullstack\\Technico\\TechnicoAPI\\TechnicoAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\svranakis\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\svranakis\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
