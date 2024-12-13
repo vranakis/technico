@@ -89,4 +89,9 @@ public class UserRepository : IRepository<User, Guid>, IUserRepo
     {
         return _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _context.Users.CountAsync();
+    }
 }

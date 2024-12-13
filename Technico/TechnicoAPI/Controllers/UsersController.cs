@@ -28,6 +28,19 @@ public class UsersController : ControllerBase
         return await _service.GetAllUsersAsync();
     }
 
+    [HttpGet]
+    [Route("paginated")]
+    public async Task<ActionResult<object>> GetUsers(int pageCount = 1, int pageSize = 10)
+    {
+        var totalUsers = await _service.GetTotalUsersCountAsync(); // Get total number of users
+        var users = await _service.GetUsersPaginatedAsync(pageCount, pageSize);
+
+        return Ok(new
+        {
+            TotalUsers = totalUsers,
+            Users = users
+        });
+    }
 
     // GET: api/Users/5
     [HttpGet]

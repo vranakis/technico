@@ -10,5 +10,6 @@ namespace Technico.Interfaces
     public interface IUserRepo
     {
         Task<User?> AuthenticateUser(string email, string password);
+        Task<int> CountAsync();
     }
 }
