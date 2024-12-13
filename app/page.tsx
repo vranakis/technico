@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useAuth } from './components/AuthContext';
 import { useRouter } from 'next/navigation';
+import TodaysRepairs from './admin/repairs-today/page';
 
 export default function Home() {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -24,10 +25,10 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-center text-3xl text-gray-600 m-5">Technico App</h1>
-      <p className="text-center text-1xl text-gray-600 m-5">
-        The best app out there. <br />
-        By far. <br />
+      <h1 className="text-center text-2xl text-gray-600 mt-2">Technico App</h1>
+      <p className="text-center text-1xl text-gray-600 mb-2">
+        The best app out there.
+        By far.
         It&apos;s not even close.
       </p>
       {isAdmin ? <AdminContent /> : <UserContent />}
@@ -37,9 +38,9 @@ export default function Home() {
 
 function AdminContent() {
   return (
-    <div>
-      <h2>Admin Dashboard</h2>
-      <p>Manage users, view reports, and handle system tasks.</p>
+    <div className="text-center text-gray-600 mt-5 m-3">
+      <h2 className='m-3 text-4xl'>Admin Dashboard</h2>
+      <TodaysRepairs />
     </div>
   );
 }

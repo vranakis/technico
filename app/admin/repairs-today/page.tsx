@@ -39,7 +39,7 @@ const TodaysRepairs = () => {
               setLoading(true);
               setError(null);
 
-              const response = await fetch(`https://localhost:7118/api/Repairs`);
+              const response = await fetch(`https://localhost:7118/api/Repairs/today`);
 
               if (!response.ok) {
                   throw new Error(`Error ${response.status}: Failed to fetch properties`);

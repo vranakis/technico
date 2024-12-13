@@ -38,10 +38,6 @@ export default function RootLayout({
 function Navbar() {
   const {isAuthenticated, isAdmin} = useAuth();
 
-
-  console.log("heheXD navbar, {isAuthenticated, isAdmin} =", isAuthenticated, isAdmin);
-  
-
   if (!isAuthenticated){
     return <LoggedOutNavbar />;
   }
@@ -77,7 +73,7 @@ return(
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li><Link href="/users">Users</Link></li>
                 <li><Link href="/admin/all-properties">Properties</Link></li>
-                <li><Link href="/admin/repairs-today">Repairs</Link></li>
+                <li><Link href="/admin/all-repairs">Repairs</Link></li>
               </ul>
             </div>
             <Link href="/" className="btn btn-ghost text-xl">Technico v16</Link>
@@ -86,7 +82,7 @@ return(
             <ul className="menu menu-horizontal px-1">
               <li><Link href="/users">Users</Link></li>
               <li><Link href="/admin/all-properties">Properties</Link></li>
-              <li><Link href="/admin/repairs-today">Repairs</Link></li>             
+              <li><Link href="/admin/all-repairs">Repairs</Link></li>             
             </ul>
           </div>
           <div className="navbar-end">

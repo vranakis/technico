@@ -1,7 +1,7 @@
 export type PropertyItem = {
     id: string,
     address: string,
-    yearOfConsruction: number,
+    yearOfConstruction: number,
     propertyType: string,
     ownerId: string
 }
