@@ -17,4 +17,5 @@ public interface IPropertyItemService
     Task<PropertyItemDto?> CreatePropertyItemAsync(PropertyItemDto propertyItemDto);
     Task<PropertyItemDto?> UpdatePropertyItemAsync(Guid propertyItemId, PropertyItemDto propertyItem);
     Task<bool> DeletePropertyItemAsync(Guid propertyItemId);
+    Task DeletePropertiesByOwnerIdAsync(Guid ownerId);
 }

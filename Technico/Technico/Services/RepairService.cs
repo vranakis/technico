@@ -162,4 +162,16 @@ public class RepairService(IRepository<Repair, Guid> repo, IRepairRepo repair) :
         return updateRepairDto;
        
     }
+
+    public async Task DeleteRepairsByPropertyIdAsync(Guid propertyItemId)
+    {
+        var repairs = await _repo.GetAllByGuidAsync(propertyItemId);
+        if (repairs == null || repairs.Count == 0)
+        {
+            return; // No repairs to delete
+        }
+
+        await _repo.DeleteRangeAsync(repairs);
+    }
+
 }

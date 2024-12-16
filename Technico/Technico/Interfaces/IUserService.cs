@@ -14,4 +14,5 @@ public interface IUserService
     Task<List<CreateUserDto>?> GetUsersPaginatedAsync(int pageCount, int pageSize);
     Task<int> GetTotalUsersCountAsync();
     Task<List<CreateUserDto>> SearchUsersAsync(string searchQuery);
+    Task<UserResponseDto?> DeleteUserWithPropertiesAsync(Guid userId);
     }

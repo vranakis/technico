@@ -80,10 +80,6 @@ public class UserRepository : IRepository<User, Guid>, IUserRepo
         return _context.Users.Any(u => u.Id == id);
     }
 
-    public Task<List<User>?> GetAllByGuidAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
 
     public Task<User?> AuthenticateUser(string email, string password)
     {
@@ -100,5 +96,14 @@ public class UserRepository : IRepository<User, Guid>, IUserRepo
         return await _context.Users
             .Where(user => user.Name!.Contains(searchQuery) || user.Surname!.Contains(searchQuery))
             .ToListAsync();
+    }
+    public Task<List<User>?> GetAllByGuidAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteRangeAsync(List<User> user)
+    {
+        throw new NotImplementedException();
     }
 }

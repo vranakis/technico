@@ -79,5 +79,9 @@ public class RepairRepository(TechnicoDbContext context) : IRepository<Repair, G
         return existingRepair;
     }
 
-   
+    public async Task DeleteRangeAsync(List<Repair> repairs)
+    {
+        _context.Repairs.RemoveRange(repairs);
+        await _context.SaveChangesAsync();
+    }
 }

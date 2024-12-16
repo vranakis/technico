@@ -87,4 +87,10 @@ public class PropertyItemRepository : IRepository<PropertyItem, Guid>
 
         return existingProperty;
     }
+
+    public async Task DeleteRangeAsync(List<PropertyItem> properties)
+    {
+        _context.PropertyItems.RemoveRange(properties);
+        await _context.SaveChangesAsync();
+    }
 }

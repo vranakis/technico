@@ -17,4 +17,5 @@ public interface IRepairService
     Task<RepairDto?> GetRepairAsync(Guid id);
     Task<List<RepairDto>?> GetRepairsForPropertyAsync(Guid id);
     Task<List<RepairDto>?> GetTodaysRepairsAsync();
+    Task DeleteRepairsByPropertyIdAsync(Guid propertyItemId);
 }

@@ -75,12 +75,19 @@ public class UsersController : ControllerBase
         return await _service.CreateUserAsync(user);
     }
 
-    // DELETE: api/Users/5
+    // DELETE: api/Users/{id}
     [HttpDelete("{id}")]
     public async Task<ActionResult<UserResponseDto?>> DeleteUser(Guid id)
     {
-        return await _service.DeleteByIdAsync(id);
+        var result = await _service.DeleteUserWithPropertiesAsync(id);
+        if (result == null)
+        {
+            return NotFound(new { Message = "User not found or already deleted." });
+        }
+
+        return Ok(result);
     }
+
 
     private async Task<ActionResult<User?>> UserExists(Guid id) 
     {

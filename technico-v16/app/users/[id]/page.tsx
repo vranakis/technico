@@ -58,7 +58,7 @@ const ViewUser = () => {
   return (
     <div className="p-5">
       <h1 className="text-center text-2xl text-gray-600 m-5">User Details</h1>
-      <div className="flex flex-col items-center bg-gray-100 p-6 rounded-lg shadow-md">
+      <div className="flex flex-col items-center bg-black p-6 rounded-lg shadow-md">
         <div className="mb-4">
           <span className="font-semibold">Name:</span> {user.name}
         </div>

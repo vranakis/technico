@@ -14,10 +14,11 @@ using Technico.Repositories;
 
 namespace Technico.Services;
 
-public class PropertyItemService(IRepository<PropertyItem, Guid> repo) : IPropertyItemService
+public class PropertyItemService(IRepository<PropertyItem, Guid> repo, IRepairService repairService) : IPropertyItemService
 {
     private readonly IRepository<PropertyItem, Guid> _repo = repo;
-
+    private readonly IRepairService _repairService = repairService;
+    
     public async Task<PropertyItemDto?> CreatePropertyItemAsync(PropertyItemDto dto)
     {
         if (dto == null)
@@ -43,6 +44,26 @@ public class PropertyItemService(IRepository<PropertyItem, Guid> repo) : IProper
     {
         var deletedPropertyItem = await _repo.DeleteAsync(propertyItemId);
         return deletedPropertyItem != null;
+    }
+
+    public async Task DeletePropertiesByOwnerIdAsync(Guid ownerId)
+    {
+        // Fetch properties owned by the user
+        var properties = await _repo.GetAllByGuidAsync(ownerId);
+
+        if (properties == null || properties.Count == 0)
+        {
+            return; // No properties to delete
+        }
+
+        // Delete each property and its associated repairs
+        foreach (var property in properties)
+        {
+            await _repairService.DeleteRepairsByPropertyIdAsync(property.PropertyItemId);
+        }
+
+        // Delete properties
+        await _repo.DeleteRangeAsync(properties);
     }
 
     public async Task<List<PropertyItemDto>?> GetAllPropertyItemsAsync()

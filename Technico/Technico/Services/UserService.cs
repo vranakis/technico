@@ -5,10 +5,11 @@ using Technico.Repositories;
 
 namespace Technico.Services;
 
-public class UserService(IRepository<User, Guid> repo, IUserRepo userRepo) : IUserService
+public class UserService(IRepository<User, Guid> repo, IUserRepo userRepo, IPropertyItemService propertyService) : IUserService
 {
     private readonly IRepository<User, Guid> _repo = repo;
     private readonly IUserRepo _userRepo = userRepo;
+    private readonly IPropertyItemService _propertyService = propertyService;
 
     public async Task<CreateUserDto?> CreateUserAsync(CreateUserDto? createUserDto)
     {
@@ -43,6 +44,30 @@ public class UserService(IRepository<User, Guid> repo, IUserRepo userRepo) : IUs
 
         return new UserResponseDto { Name = user.Name, Surname = user.Surname };
     }
+
+    public async Task<UserResponseDto?> DeleteUserWithPropertiesAsync(Guid userId)
+    {
+        // Fetch user
+        User? user = await _repo.GetAsync(userId);
+        if (user == null)
+        {
+            return null; // User not found
+        }
+
+        // Delete all properties associated with the user
+        await _propertyService.DeletePropertiesByOwnerIdAsync(userId);
+
+        // Delete the user
+        await _repo.DeleteAsync(userId);
+
+        // Return response DTO
+        return new UserResponseDto
+        {
+            Name = user.Name,
+            Surname = user.Surname
+        };
+    }
+
 
     public async Task<User?> FindByIdAsync(Guid id)
     {
